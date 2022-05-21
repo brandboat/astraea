@@ -46,11 +46,8 @@ function docker_container_running() {
 # let node_exporter listen at 0.0.0.0, so anyone can access it from localhost or hostname
 function run_node_exporter() {
   docker run -d \
-    --net="host" \
-    --pid="host" \
-    -v "/:/host:ro,rslave" \
+    -p $PORT:$PORT \
     prom/node-exporter \
-    --path.rootfs=/host \
     --web.listen-address="0.0.0.0:$PORT"
 }
 container_id="$(run_node_exporter)"
